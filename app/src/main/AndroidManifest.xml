@@ -42,7 +42,8 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".mapFragment" />
-        <activity android:name=".MapFragment"></activity>
+        <activity android:name=".MapFragmentView" />
+        <activity android:name=".ViewMapFragment"></activity>
     </application>
 
 </manifest>
