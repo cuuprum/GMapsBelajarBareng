@@ -43,7 +43,11 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".mapFragment" />
         <activity android:name=".MapFragmentView" />
-        <activity android:name=".ViewMapFragment"></activity>
+        <activity android:name=".ViewMapFragment" />
+        <activity android:name=".MapMoveActivity" />
+        <activity android:name=".MapTypeActivity" />
+        <activity android:name=".MapFragmentActivity" />
+        <activity android:name=".MarkerOptionsActivity"></activity>
     </application>
 
 </manifest>

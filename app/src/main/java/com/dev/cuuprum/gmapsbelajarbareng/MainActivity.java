@@ -3,78 +3,48 @@ package com.dev.cuuprum.gmapsbelajarbareng;
 /*
 * Kelas untuk menu si maps
  */
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-public class MainActivity extends AppCompatActivity implements
-OnMapReadyCallback{
-    GoogleMap m_map;
-    boolean mapReady = false;
-
-    static final CameraPosition JAKARTA = CameraPosition.builder()
-            .target(new LatLng(-6.240236, 106.796348))
-            .zoom(17)
-            .bearing(0)
-            .tilt(45)
-            .build();
+    // Define views
+    private Button btnMapFragment, btnMapType, btnMapMove, btnMarkerOpt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnMap = (Button) findViewById(R.id.btnMap);
-        btnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View _view) {
-                if (mapReady)
-                    m_map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-            }
-        });
+        // Getting views from xml
+        btnMapFragment = (Button) findViewById(R.id.btnMapFragment);
+        btnMapType = (Button) findViewById(R.id.btnMapType);
+        btnMapMove = (Button) findViewById(R.id.btnMapMove);
+        btnMarkerOpt = (Button) findViewById(R.id.btnMarkerOpt);
 
-        Button btnSatellite = (Button) findViewById(R.id.btnSatellite);
-        btnSatellite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View _view) {
-                if (mapReady)
-                    m_map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-            }
-        });
-
-        Button btnHybird = (Button) findViewById(R.id.btnHybird);
-        btnHybird.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View _view) {
-                if (mapReady)
-                    m_map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-            }
-        });
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentMap);
-        mapFragment.getMapAsync(this);
-
+        // Add Listener to view
+        btnMapFragment.setOnClickListener(this);
+        btnMapType.setOnClickListener(this);
+        btnMapMove.setOnClickListener(this);
+        btnMarkerOpt.setOnClickListener(this);
     }
 
-        @Override
-        public void onMapReady(GoogleMap _map){
-            mapReady = true;
-            m_map = _map;
-            m_map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
-            flyTo(JAKARTA);
-        }
-
-        private void flyTo(CameraPosition _target){
-            m_map.animateCamera(CameraUpdateFactory.newCameraPosition(_target), 10000, null); // 1000 kecepatan kamera
-        }
-
+    @Override
+    public void onClick(View _view){
+        if(_view == btnMapFragment)
+            startActivity(new Intent(this, MapFragmentActivity.class));
+        else if(_view == btnMapType)
+            startActivity(new Intent(this, MapTypeActivity.class));
+        else if(_view == btnMapMove)
+            startActivity(new Intent(this, MapMoveActivity.class));
+        else if(_view == btnMarkerOpt)
+            startActivity(new Intent(this, MarkerOptionsActivity.class));
+        else
+            Toast.makeText(MainActivity.this, "Wrong click", Toast.LENGTH_LONG).show();
+    }
 }
